@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.32829.479
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl.Package", "src\CustomControl.Package\CustomControl.Package.csproj", "{906DBC16-F4E1-4435-8902-D52B64C3BC41}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6E580230-FCDE-4793-A554-760F7F2678CC} = {6E580230-FCDE-4793-A554-760F7F2678CC}
+		{D03739BC-5554-4ED6-8534-79861A5643FA} = {D03739BC-5554-4ED6-8534-79861A5643FA}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl", "src\CustomControl\CustomControl.csproj", "{D03739BC-5554-4ED6-8534-79861A5643FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl.Client", "src\CustomControl.Client\CustomControl.Client.csproj", "{6E580230-FCDE-4793-A554-760F7F2678CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{850D4E99-F94D-43FF-A90D-4061BE33C551}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		NuGet.config = NuGet.config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D03739BC-5554-4ED6-8534-79861A5643FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03739BC-5554-4ED6-8534-79861A5643FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03739BC-5554-4ED6-8534-79861A5643FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03739BC-5554-4ED6-8534-79861A5643FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E580230-FCDE-4793-A554-760F7F2678CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E580230-FCDE-4793-A554-760F7F2678CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E580230-FCDE-4793-A554-760F7F2678CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E580230-FCDE-4793-A554-760F7F2678CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{906DBC16-F4E1-4435-8902-D52B64C3BC41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{906DBC16-F4E1-4435-8902-D52B64C3BC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{906DBC16-F4E1-4435-8902-D52B64C3BC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{906DBC16-F4E1-4435-8902-D52B64C3BC41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0148A584-EBE0-4762-AAAC-BFA49587A984}
+	EndGlobalSection
+EndGlobal

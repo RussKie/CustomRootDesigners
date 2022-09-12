@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(TargetFrameworkServer)-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseDesignerSDK>true</UseDesignerSDK>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="SampleRootComponentDocumentDesignedComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="SampleRootComponentDesignedComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>
