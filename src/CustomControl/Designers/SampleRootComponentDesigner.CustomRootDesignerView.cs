@@ -3,13 +3,15 @@
 // See the LICENSE file in the project root for more information.
 // -------------------------------------------------------------------
 
+using Microsoft.DotNet.DesignTools.Designers;
+
 namespace CustomControl.Designers;
 
 public partial class SampleRootComponentDesigner
 {
     // RootDesignerView is a simple control that will be displayed 
     // in the designer window.
-    private class CustomRootDesignerView : Control
+    private class CustomRootDesignerView : RootDesignerView
     {
         private static Rectangle s_magicArea = new(100, 100, 100, 100);
         private readonly SampleRootComponentDesigner _designer;
@@ -19,6 +21,7 @@ public partial class SampleRootComponentDesigner
 
 
         public CustomRootDesignerView(SampleRootComponentDesigner designer)
+            : base(designer)
         {
             _designer = designer;
 
