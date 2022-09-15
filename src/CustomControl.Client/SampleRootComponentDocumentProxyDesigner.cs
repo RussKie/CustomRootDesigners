@@ -6,6 +6,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Windows.Forms;
 using Microsoft.DotNet.DesignTools.Client.Designers;
 
 namespace CustomControl.Client
@@ -15,7 +16,7 @@ namespace CustomControl.Client
 
     public class SampleRootComponentDocumentProxyDesigner : ParentControlProxyDesigner, IRootDesigner
     {
-        private DesignerView _designerView;
+        private Control _designerView;
 
         public SampleRootComponentDocumentProxyDesigner()
         {
@@ -28,7 +29,7 @@ namespace CustomControl.Client
             // Create the view for this component. We first create the designer frame so we can provide
             // the overlay and the split window services, and then later on we initialize the frame with
             // the designer view.
-            _designerView = new DesignerView(component.Site);
+            _designerView = CreateDesignerView(component);
         }
 
         protected override void Dispose(bool disposing)
