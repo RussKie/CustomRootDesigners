@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // -------------------------------------------------------------------
 
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using Microsoft.DotNet.DesignTools.Designers;
 
@@ -16,6 +17,20 @@ public partial class SampleRootComponentDocumentDesigner : ComponentDocumentDesi
     // view control on each call to GetView().
     private CustomRootDesignerView? _view;
 
+    public override void Initialize(IComponent component)
+    {
+        base.Initialize(component);
+
+        // Some type of displayable Form or control is required 
+        // for a root designer that overrides GetView(). In this 
+        // example, a Control of type RootDesignerView is used.
+        // Any class that inherits from Control will work.
+        _view = new CustomRootDesignerView(this, base.DefaultInputDispatcher);
+
+        // Replace the default input dispatcher with our custom one from CustomRootDesignerView
+        base.ReplaceInputDispatch(_view);
+    }
+
     // This method returns an instance of the view for this root
     // designer. The "view" is the user interface that is presented
     // in a document window for the user to manipulate. 
@@ -26,16 +41,7 @@ public partial class SampleRootComponentDocumentDesigner : ComponentDocumentDesi
             throw new ArgumentException("Not a supported view technology", nameof(technology));
         }
 
-        if (_view is null)
-        {
-            // Some type of displayable Form or control is required 
-            // for a root designer that overrides GetView(). In this 
-            // example, a Control of type RootDesignerView is used.
-            // Any class that inherits from Control will work.
-            _view = new CustomRootDesignerView(this);
-        }
-
-        return _view;
+        return _view!;
     }
 
     // IRootDesigner.SupportedTechnologies is a required override for an

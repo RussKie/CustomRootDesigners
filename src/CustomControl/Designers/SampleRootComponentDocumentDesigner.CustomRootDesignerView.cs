@@ -11,22 +11,49 @@ public partial class SampleRootComponentDocumentDesigner
 {
     // RootDesignerView is a simple control that will be displayed 
     // in the designer window.
-    private class CustomRootDesignerView : Control
+    private partial class CustomRootDesignerView : RootDesignerView
     {
         private static Rectangle s_magicArea = new(100, 100, 100, 100);
         private readonly SampleRootComponentDocumentDesigner _designer;
+        private readonly IInputDispatcher _parentInputDispatcher;
         private bool _isDoingMagic;
-        private bool _isMagicOn;
         private readonly Font _magicFont;
 
-        public CustomRootDesignerView(SampleRootComponentDocumentDesigner designer)
+        public CustomRootDesignerView(SampleRootComponentDocumentDesigner designer, IInputDispatcher parentInputDispatcher)
+            : base(designer)
         {
             _designer = designer;
-
+            _parentInputDispatcher = parentInputDispatcher;
             BackColor = Color.Olive;
             DoubleBuffered = true;
             Font = new Font(Font.FontFamily.Name, 24.0f);
             _magicFont = new Font("Chiller", 24f);
+        }
+
+        protected override IInputDispatcher InputDispatcher => new CustomDispatcher(this, _parentInputDispatcher);
+
+        private void DoMagic()
+        {
+            if (_isDoingMagic)
+            {
+                return;
+
+            }
+
+            _isDoingMagic = true;
+            Invalidate();
+        }
+
+        private void UndoMagic()
+        {
+            if (!_isDoingMagic)
+            {
+                return;
+
+            }
+
+            _isDoingMagic = false;
+            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -42,21 +69,6 @@ public partial class SampleRootComponentDocumentDesigner
 
             // Draws the name of the component in large letters.
             pe.Graphics.DrawString(_designer.Component.Site!.Name, Font, Brushes.Yellow, ClientRectangle);
-        }
-
-        // This is won't going to work!
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            _isMagicOn = s_magicArea.Contains(e.Location);
-            Cursor = _isMagicOn ? Cursors.SizeAll : Cursors.Default;
-
-            if (_isDoingMagic != _isMagicOn)
-            {
-                _isDoingMagic = _isMagicOn;
-                Invalidate();
-            }
-
-            base.OnMouseMove(e);
         }
     }
 }

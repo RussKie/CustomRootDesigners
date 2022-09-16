@@ -7,19 +7,23 @@ using Microsoft.DotNet.DesignTools.Designers;
 
 namespace CustomControl.Designers;
 
-public partial class SampleRootComponentDesigner
+public partial class SampleRootComponentDocumentDesigner
 {
     private partial class CustomRootDesignerView
     {
         private class CustomDispatcher : InputDispatcher
         {
             private readonly CustomRootDesignerView _designerView;
+            private readonly IInputDispatcher _parentInputDispatcher;
 
-            public CustomDispatcher(CustomRootDesignerView designerView) 
+            public CustomDispatcher(CustomRootDesignerView designerView, IInputDispatcher parentInputDispatcher)
                 : base(() => designerView)
             {
                 _designerView = designerView;
+                _parentInputDispatcher = parentInputDispatcher;
             }
+
+            public override IInputDispatcher? ParentDispatcher => _parentInputDispatcher;
 
             public override InputResponse OnMouseMove(MouseButtons buttons, Point location)
             {
