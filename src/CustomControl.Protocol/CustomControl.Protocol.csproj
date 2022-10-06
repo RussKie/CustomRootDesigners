@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(TargetFrameworkServer)-windows;$(TargetFrameworkClient)</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>annotations</Nullable>
+    <UseDesignerSDK>true</UseDesignerSDK>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+</Project>

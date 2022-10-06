@@ -17,6 +17,18 @@ public partial class SampleRootComponentDocumentDesigner : ComponentDocumentDesi
     // view control on each call to GetView().
     private CustomRootDesignerView? _view;
 
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _view?.Dispose();
+
+            Host.RemoveService(typeof(IInputDispatchProvider));
+        }
+
+        base.Dispose(disposing);
+    }
+
     public override void Initialize(IComponent component)
     {
         base.Initialize(component);
@@ -25,10 +37,12 @@ public partial class SampleRootComponentDocumentDesigner : ComponentDocumentDesi
         // for a root designer that overrides GetView(). In this 
         // example, a Control of type RootDesignerView is used.
         // Any class that inherits from Control will work.
-        _view = new CustomRootDesignerView(this, base.DefaultInputDispatcher);
+        _view = new CustomRootDesignerView(this, ((IInputDispatchProvider)base.Control).InputDispatcher);
 
         // Replace the default input dispatcher with our custom one from CustomRootDesignerView
-        base.ReplaceInputDispatch(_view);
+        //base.ReplaceInputDispatch(_view);
+        Host.RemoveService(typeof(IInputDispatchProvider));
+        Host.AddService(typeof(IInputDispatchProvider), _view);
     }
 
     // This method returns an instance of the view for this root

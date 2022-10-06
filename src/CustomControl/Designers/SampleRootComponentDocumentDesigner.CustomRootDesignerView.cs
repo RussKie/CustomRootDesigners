@@ -11,7 +11,7 @@ public partial class SampleRootComponentDocumentDesigner
 {
     // RootDesignerView is a simple control that will be displayed 
     // in the designer window.
-    private partial class CustomRootDesignerView : RootDesignerView
+    private partial class CustomRootDesignerView : Control, IInputDispatchProvider
     {
         private static Rectangle s_magicArea = new(100, 100, 100, 100);
         private readonly SampleRootComponentDocumentDesigner _designer;
@@ -20,17 +20,17 @@ public partial class SampleRootComponentDocumentDesigner
         private readonly Font _magicFont;
 
         public CustomRootDesignerView(SampleRootComponentDocumentDesigner designer, IInputDispatcher parentInputDispatcher)
-            : base(designer)
         {
             _designer = designer;
             _parentInputDispatcher = parentInputDispatcher;
             BackColor = Color.Olive;
+            Dock = DockStyle.Fill;
             DoubleBuffered = true;
             Font = new Font(Font.FontFamily.Name, 24.0f);
             _magicFont = new Font("Chiller", 24f);
         }
 
-        protected override IInputDispatcher InputDispatcher => new CustomDispatcher(this, _parentInputDispatcher);
+        IInputDispatcher IInputDispatchProvider.InputDispatcher => new CustomDispatcher(this, _parentInputDispatcher);
 
         private void DoMagic()
         {

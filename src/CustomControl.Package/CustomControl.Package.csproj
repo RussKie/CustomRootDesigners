@@ -20,6 +20,9 @@
       <_File Include="$(SolutionDir)\src\CustomControl\bin\$(Configuration)\$(TargetFrameworkServer)-windows\CustomControl.pdb" />
 
       <_File Include="$(SolutionDir)\src\CustomControl.Client\bin\$(Configuration)\$(TargetFrameworkClient)\CustomControl.Client.dll" TargetDir="Design/WinForms" />
+
+      <_File Include="$(SolutionDir)\src\CustomControl.Protocol\bin\$(Configuration)\$(TargetFrameworkClient)\CustomControl.Protocol.dll" TargetDir="Design/WinForms" />
+      <_File Include="$(SolutionDir)\src\CustomControl.Protocol\bin\$(Configuration)\$(TargetFrameworkServer)-windows\CustomControl.Protocol.dll" TargetDir="Design/WinForms/Server" />
     </ItemGroup>
 
     <ItemGroup>

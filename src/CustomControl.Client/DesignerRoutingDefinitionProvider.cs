@@ -7,23 +7,20 @@ using System.Collections.Generic;
 using System.Composition;
 using Microsoft.DotNet.DesignTools.Client.TypeRouting;
 
-namespace CustomControl.Client
+namespace CustomControl.Client;
+
+[Shared]
+[ExportTypeRoutingDefinitionProvider]
+internal class DesignerRoutingDefinitionProvider : TypeRoutingDefinitionProvider
 {
-    [Shared]
-    [ExportTypeRoutingDefinitionProvider]
-    internal class DesignerRoutingDefinitionProvider : TypeRoutingDefinitionProvider
+    private readonly TypeRoutingDefinition[] _definitions = new[]
     {
-        private readonly TypeRoutingDefinition[] _definitions = new[]
-        {
-            // Container control designers...
-            RerouteDesigner<SampleRootComponentProxyDesigner>("CustomControl.Designers.SampleRootComponentDesigner"),
-            RerouteDesigner<SampleRootComponentDocumentProxyDesigner>("CustomControl.Designers.SampleRootComponentDocumentDesigner"),
-        };
+        // Container control designers...
+        RerouteDesigner<TestComponentDocumentProxyDesigner>("CustomControl.Designers.TestComponentDocumentDesigner"),
+    };
 
-        public TypeRoutingDefinition[] Definitions => _definitions;
+    public TypeRoutingDefinition[] Definitions => _definitions;
 
-        public override IEnumerable<TypeRoutingDefinition> GetDefinitions()
-            => Definitions;
-    }
-
+    public override IEnumerable<TypeRoutingDefinition> GetDefinitions()
+        => Definitions;
 }
