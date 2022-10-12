@@ -4,7 +4,10 @@ This sample shows how to build custom root designer for the Windows Forms out-of
 
 ![Screenshot](screenshot.png)
 
-:exclamation: This sample requires Visual Studio 17.4.
+https://user-images.githubusercontent.com/4403806/195274386-f27314db-d4c5-48cd-bb5c-c1726c34a6f5.mp4
+
+
+:exclamation: This sample requires Visual Studio 17.5.
 
 ## Solution structure
 
@@ -28,4 +31,3 @@ This sample shows how to build custom root designer for the Windows Forms out-of
 dotnet build CustomRootDesigners.sln
 start Demo.sln
 ```
-
