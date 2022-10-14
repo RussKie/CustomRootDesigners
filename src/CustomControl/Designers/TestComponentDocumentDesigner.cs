@@ -9,11 +9,13 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using CustomControl.Protocol.Notifications;
 using Microsoft.DotNet.DesignTools.Designers;
+using Microsoft.DotNet.DesignTools.Services;
 
 namespace CustomControl.Designers;
 
 public partial class TestComponentDocumentDesigner : ComponentDesigner, IRootDesigner, ITypeDescriptorFilterService
 {
+    private IRemoteToolboxService? _lazyToolboxService;
     private ITypeDescriptorFilterService? _delegateFilterService;
     private InheritanceService? _inheritanceService;
     private DesignerFrame? _frame;
@@ -35,6 +37,9 @@ public partial class TestComponentDocumentDesigner : ComponentDesigner, IRootDes
             return _compositionUI!;
         }
     }
+    internal IRemoteToolboxService ToolboxService
+        => GetCachedService(ref _lazyToolboxService);
+
 
     public bool TrayAutoArrange
     {

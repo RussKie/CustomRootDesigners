@@ -34,7 +34,7 @@ public partial class TestComponentDocumentDesigner
             _watermark = new(this);
             Controls.Add(_watermark);
 
-            _dispatcher = new CustomDispatcher(this, _watermark);
+            _dispatcher = new CustomDispatcher(this, _designer, _watermark);
         }
 
         public IInputDispatcher InputDispatcher => _dispatcher;

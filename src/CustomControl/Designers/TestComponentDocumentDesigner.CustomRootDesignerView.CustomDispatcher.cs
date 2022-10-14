@@ -14,12 +14,15 @@ public partial class TestComponentDocumentDesigner
         private class CustomDispatcher : InputDispatcher
         {
             private readonly IInputDispatcher _parentDispatcher;
+            private readonly TestComponentDocumentDesigner _compositionDesigner;
             private readonly WatermarkLabel _watermarkLabel;
+            private bool _isToolboxItemSelected;
 
-            public CustomDispatcher(CustomRootDesignerView owner, WatermarkLabel watermarkLabel)
+            public CustomDispatcher(CustomRootDesignerView owner, TestComponentDocumentDesigner compositionDesigner, WatermarkLabel watermarkLabel)
                 : base(() => owner)
             {
                 _parentDispatcher = owner.GetDispatcher();
+                _compositionDesigner = compositionDesigner;
                 _watermarkLabel = watermarkLabel;
             }
 
@@ -27,6 +30,8 @@ public partial class TestComponentDocumentDesigner
 
             public override InputResponse OnMouseDown(MouseButtons buttons, Point location)
             {
+                _isToolboxItemSelected = _compositionDesigner.ToolboxService.IsItemSelected;
+
                 if (_watermarkLabel.Visible)
                 {
                     return _watermarkLabel.InputDispatcher.OnMouseDown(buttons, location);
@@ -60,6 +65,14 @@ public partial class TestComponentDocumentDesigner
 
             public override InputResponse OnMouseUp(MouseButtons buttons, Point location)
             {
+                if (_isToolboxItemSelected)
+                {
+                    _compositionDesigner.SendCreateSelectedToolboxItemNotification(location);
+                    _isToolboxItemSelected = false;
+
+                    return InputResponse.Default;
+                }
+
                 if (_watermarkLabel.Visible)
                 {
                     return _watermarkLabel.InputDispatcher.OnMouseUp(buttons, location);
