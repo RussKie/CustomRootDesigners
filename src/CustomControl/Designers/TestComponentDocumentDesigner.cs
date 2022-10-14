@@ -20,6 +20,9 @@ public partial class TestComponentDocumentDesigner : ComponentDesigner, IRootDes
     private InheritanceService? _inheritanceService;
     private DesignerFrame? _frame;
 
+    // Our set of menu commands
+    private ComponentCommandSet? _commandSet;
+
     // Member field of custom type RootDesignerView, a control that 
     // will be shown in the Forms designer view. This member is 
     // cached to reduce processing needed to recreate the 
@@ -71,6 +74,9 @@ public partial class TestComponentDocumentDesigner : ComponentDesigner, IRootDes
             ComponentChangeService.ComponentAdded -= OnComponentAdded;
             ComponentChangeService.ComponentRemoved -= OnComponentRemoved;
 
+            _commandSet?.Dispose();
+            _commandSet = null;
+
             DisposeDesignerFrame();
 
             _compositionUI?.Dispose();
@@ -83,6 +89,7 @@ public partial class TestComponentDocumentDesigner : ComponentDesigner, IRootDes
 
             Host.RemoveService(typeof(IInputDispatchProvider));
             Host.RemoveService(typeof(ComponentTray));
+            Host.RemoveService(typeof(Microsoft.DotNet.DesignTools.Commands.CommandSet));
 
             // Restore the original service
             Host.RemoveService(typeof(ITypeDescriptorFilterService));
@@ -129,6 +136,11 @@ public partial class TestComponentDocumentDesigner : ComponentDesigner, IRootDes
         // could be off because during load, change events are not fired.
 
         Host.LoadComplete += OnLoadComplete;
+
+        // Setup our menu command structure.
+
+        _commandSet = new ComponentCommandSet(_compositionUI, component.Site);
+        Host.AddService(typeof(Microsoft.DotNet.DesignTools.Commands.CommandSet), _commandSet);
 
         // Hook up to the ITypeDescriptorFilterService so we can hide the location property on all components
         // being added to the designer.
