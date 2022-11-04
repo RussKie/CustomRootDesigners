@@ -31,6 +31,7 @@ public partial class SampleRootComponentDesigner : ComponentDesigner, IRootDesig
         base.Dispose(disposing);
     }
 
+    internal IDesignerHost HostInternal => Host;
 
     public override void Initialize(IComponent component)
     {
@@ -46,8 +47,6 @@ public partial class SampleRootComponentDesigner : ComponentDesigner, IRootDesig
         // example, a Control of type RootDesignerView is used.
         // Any class that inherits from Control will work.
         _view = new CustomRootDesignerView(this);
-
-        Host.AddService(typeof(IInputDispatchProvider), _view);
 
         // Finally hook the designer view into the frame.  We do this last because the frame may
         // cause the control to be created, and if this happens before the inheritance scan we

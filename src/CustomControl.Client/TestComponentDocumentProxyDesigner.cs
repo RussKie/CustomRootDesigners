@@ -1,4 +1,4 @@
-// -------------------------------------------------------------------
+﻿// -------------------------------------------------------------------
 // Copyright (c) Microsoft Corporation. All Rights Reserved.
 // See the LICENSE file in the project root for more information.
 // -------------------------------------------------------------------
@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Drawing.Design;
-using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using CustomControl.Protocol.Notifications;
 using Microsoft.DotNet.DesignTools.Client.Designers;
@@ -25,7 +24,6 @@ public partial class TestComponentDocumentProxyDesigner : ComponentProxyDesigner
     private const string LinkDataCodeView = "CodeView";
     private const string LinkDataToolbox = "Toolbox";
 
-    private IMenuCommandService? _menuCommandService;
     private IMenuCommandService? _oldMenuCommandService;
     private ClientComponentTray? _componentTray;
     private ComponentCommandSet? _commandSet;
@@ -34,32 +32,12 @@ public partial class TestComponentDocumentProxyDesigner : ComponentProxyDesigner
     {
     }
 
-    /// <summary>
-    /// Determines if the tab order UI is active. When tab order is active, the tray is locked in a "read only" mode.
-    /// </summary>
-    private bool TabOrderActive
-    {
-        get
-        {
-            if (_menuCommandService.FindCommand(StandardCommands.TabOrder) is MenuCommand command)
-            {
-                return command.Checked;
-            }
-
-            return false;
-        }
-    }
-
     public override void Initialize(IComponent component)
     {
         base.Initialize(component);
 
-        IServiceProvider serviceProvider = Component.Site;
-        _menuCommandService = serviceProvider.GetRequiredService<IMenuCommandService>();
-
         DesignerProxy.AddHandler<TrayAddedNotification.Data>(OnTrayAddedNotification);
         DesignerProxy.AddHandler<LinkClickedNotification.Data>(OnLinkClickedNotification);
-
 
         // Setup our menu command structure.
         _commandSet = new ComponentCommandSet(component.Site);
